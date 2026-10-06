@@ -1,535 +1,794 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CLIPZONE | Creator & Editing Hub</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
+<title>CLIPZONE | Creator & Editing Hub</title>
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #050509;
-      color: white;
-      overflow-x: hidden;
-    }
+<style>
 
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      filter: blur(130px);
-      opacity: 0.25;
-      z-index: -1;
-      animation: float 8s infinite alternate ease-in-out;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
 
-    body::before {
-      background: #315cff;
-      top: -200px;
-      left: -150px;
-    }
+body {
+    background: #050509;
+    color: white;
+    overflow-x: hidden;
+}
 
-    body::after {
-      background: #8b35ff;
-      right: -180px;
-      top: 40%;
-      animation-delay: 2s;
-    }
+/* ANIMATED BACKGROUND */
 
-    @keyframes float {
-      from {
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    z-index: -1;
+    animation: float 8s infinite alternate ease-in-out;
+}
+
+body::before {
+    background: #005eff;
+    top: -150px;
+    left: -150px;
+}
+
+body::after {
+    background: #8a00ff;
+    bottom: -150px;
+    right: -150px;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    from {
         transform: translate(0, 0);
-      }
-      to {
-        transform: translate(80px, 50px);
-      }
     }
 
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 18px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(5, 5, 9, 0.75);
-      backdrop-filter: blur(15px);
-      z-index: 1000;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    to {
+        transform: translate(100px, 80px);
+    }
+}
+
+/* NAVBAR */
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(5,5,9,0.75);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #aaa;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: white;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 120px 20px 60px;
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.hero h1 {
+    font-size: clamp(60px, 10vw, 130px);
+    font-weight: 1000;
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #4c8dff,
+        #9b4dff,
+        #ffffff
+    );
+    background-size: 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 6s infinite linear;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0%;
     }
 
-    .logo {
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: 2px;
-      background: linear-gradient(90deg, #4d7cff, #a855f7);
-      -webkit-background-clip: text;
-      color: transparent;
+    100% {
+        background-position: 300%;
     }
+}
 
-    nav a {
-      color: #ddd;
-      text-decoration: none;
-      margin-left: 25px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+.hero p {
+    color: #aaa;
+    font-size: 20px;
+    margin: 25px 0 35px;
+}
 
-    nav a:hover {
-      color: white;
-      text-shadow: 0 0 15px #587cff;
-    }
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 120px 20px 80px;
+.btn {
+    padding: 15px 28px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.primary {
+    background: linear-gradient(90deg,#0066ff,#8a2be2);
+    color: white;
+    box-shadow: 0 0 30px rgba(80,50,255,0.4);
+}
+
+.secondary {
+    border: 1px solid #333;
+    color: white;
+    background: rgba(255,255,255,0.04);
+}
+
+.btn:hover {
+    transform: translateY(-4px) scale(1.03);
+}
+
+/* SECTIONS */
+
+section {
+    padding: 100px 8%;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 45px;
+    margin-bottom: 50px;
+}
+
+/* FEATURES */
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
+}
+
+.card {
+    padding: 30px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: #6b4cff;
+    box-shadow: 0 0 35px rgba(80,50,255,0.2);
+}
+
+.card h3 {
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+
+.card p {
+    color: #999;
+    line-height: 1.6;
+}
+
+/* VIDEO */
+
+.video-container {
+    max-width: 900px;
+    margin: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(60,80,255,0.2);
+}
+
+.video-container iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+
+/* CREATOR SHOWCASE */
+
+.creators {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 20px;
+}
+
+.creator {
+    text-align: center;
+    padding: 35px 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: 0.3s;
+}
+
+.creator:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 0 35px rgba(80,50,255,0.2);
+}
+
+.creator-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.creator p {
+    color: #999;
+}
+
+/* DISCORD */
+
+.discord-box {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+.discord-widget {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.discord-widget iframe {
+    border-radius: 15px;
+}
+
+/* CHALLENGE */
+
+.challenge {
+    max-width: 900px;
+    margin: auto;
+    padding: 50px;
+    text-align: center;
+    border-radius: 25px;
+    background: linear-gradient(
+        135deg,
+        rgba(0,80,255,0.15),
+        rgba(130,0,255,0.15)
+    );
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 50px rgba(80,50,255,0.15);
+}
+
+.challenge h3 {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.challenge p {
+    color: #aaa;
+    line-height: 1.7;
+}
+
+.rules {
+    margin: 25px auto;
+    max-width: 400px;
+    text-align: left;
+    color: #ccc;
+    line-height: 2;
+}
+
+/* COUNTDOWN */
+
+#countdown {
+    font-size: 45px;
+    font-weight: 900;
+    margin: 30px 0;
+    background: linear-gradient(90deg,#4c8dff,#a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ABOUT */
+
+.about {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+.about p {
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+/* CTA */
+
+.cta {
+    text-align: center;
+    padding: 120px 20px;
+}
+
+.cta h2 {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.cta p {
+    color: #999;
+    margin-bottom: 30px;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* MOBILE */
+
+@media(max-width:700px) {
+
+    .nav-links {
+        display: none;
     }
 
     .hero h1 {
-      font-size: clamp(55px, 11vw, 130px);
-      font-weight: 1000;
-      background: linear-gradient(90deg, #4d7cff, #a855f7, #4d7cff);
-      background-size: 200%;
-      -webkit-background-clip: text;
-      color: transparent;
-      animation: gradientMove 4s infinite linear;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0%; }
-      100% { background-position: 200%; }
+        font-size: 65px;
     }
 
     .hero p {
-      max-width: 700px;
-      color: #aaa;
-      font-size: 20px;
-      line-height: 1.6;
-      margin: 20px 0 35px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 15px 28px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 800;
-      transition: 0.3s;
-    }
-
-    .primary {
-      background: linear-gradient(90deg, #315cff, #813cff);
-      color: white;
-      box-shadow: 0 0 25px rgba(70,90,255,0.35);
-    }
-
-    .secondary {
-      border: 1px solid #333;
-      color: white;
-      background: rgba(255,255,255,0.04);
-    }
-
-    .btn:hover {
-      transform: translateY(-5px) scale(1.03);
-      box-shadow: 0 0 35px rgba(90,100,255,0.5);
-    }
-
-    section {
-      padding: 100px 7%;
+        font-size: 17px;
     }
 
     .section-title {
-      text-align: center;
-      font-size: 42px;
-      margin-bottom: 50px;
-    }
-
-    .section-title span {
-      color: #6584ff;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 22px;
-    }
-
-    .card {
-      padding: 30px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: 0.35s;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: rgba(100,120,255,0.5);
-      box-shadow: 0 0 30px rgba(70,80,255,0.18);
-    }
-
-    .card h3 {
-      font-size: 23px;
-      margin-bottom: 12px;
-    }
-
-    .card p {
-      color: #aaa;
-      line-height: 1.6;
-    }
-
-    .video-container {
-      max-width: 500px;
-      margin: auto;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 0 40px rgba(70,80,255,0.2);
-      border: 1px solid rgba(255,255,255,0.1);
+        font-size: 35px;
     }
 
     .video-container iframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-      display: block;
+        height: 350px;
     }
 
-    .discord-box {
-      max-width: 900px;
-      margin: auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 25px;
-      text-align: center;
+    .challenge {
+        padding: 30px 20px;
     }
 
-    .discord-box iframe {
-      width: 100%;
-      max-width: 500px;
-      height: 500px;
-      border: none;
-      border-radius: 18px;
-      box-shadow: 0 0 35px rgba(80,90,255,0.25);
-    }
-
-    .about-box {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      text-align: center;
-      transition: 0.3s;
-    }
-
-    .about-box:hover {
-      box-shadow: 0 0 35px rgba(80,90,255,0.2);
-    }
-
-    .about-box p {
-      color: #aaa;
-      line-height: 1.8;
-      font-size: 18px;
-    }
-
-    .cta {
-      text-align: center;
-      padding: 120px 20px;
-      background: linear-gradient(
-        180deg,
-        transparent,
-        rgba(70,70,255,0.08),
-        transparent
-      );
+    #countdown {
+        font-size: 32px;
     }
 
     .cta h2 {
-      font-size: 50px;
-      margin-bottom: 20px;
-    }
-
-    .cta p {
-      color: #aaa;
-      margin-bottom: 30px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 35px;
-      color: #666;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    @media (max-width: 700px) {
-      nav {
-        padding: 15px 5%;
-      }
-
-      nav a {
-        margin-left: 10px;
-        font-size: 13px;
-      }
-
-      .hero p {
-        font-size: 17px;
-      }
-
-      section {
-        padding: 75px 5%;
-      }
-
-      .section-title {
-        font-size: 34px;
-      }
-
-      .cta h2 {
         font-size: 38px;
-      }
     }
-  </style>
+}
+
+</style>
 </head>
 
 <body>
 
-  <nav>
+<!-- NAVIGATION -->
+
+<nav>
+
     <div class="logo">CLIPZONE</div>
 
-    <div>
-      <a href="#features">Features</a>
-      <a href="#discord">Discord</a>
-      <a href="#showcase">Showcase</a>
+    <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#showcase">Showcase</a>
+        <a href="#challenge">Challenge</a>
+        <a href="#discord">Discord</a>
     </div>
-  </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>CLIPZONE</h1>
+</nav>
 
-    <p>
-      The creator and editing hub for clips, Shorts, thumbnails,
-      gaming, ideas, edits, and collaborations.
-    </p>
 
-    <div class="buttons">
-      <a
-        class="btn primary"
-        href="https://discord.gg/dyD75NwRdD"
-        target="_blank"
-      >
-        🔥 JOIN CLIPZONE
-      </a>
+<!-- HERO -->
 
-      <a class="btn secondary" href="#showcase">
-        🎬 SEE THE COMMUNITY
-      </a>
-    </div>
-  </section>
+<section class="hero">
 
-  <!-- FEATURES -->
-  <section id="features">
+    <div class="hero-content">
 
-    <h2 class="section-title">
-      Everything <span>Creators</span> Need
-    </h2>
+        <h1>CLIPZONE</h1>
 
-    <div class="grid">
-
-      <div class="card">
-        <h3>🎥 Clips & Shorts</h3>
         <p>
-          Share your best gaming clips, Shorts, funny moments,
-          highlights, and edits.
+            The creator & editing hub for clips, gaming, edits,
+            thumbnails, ideas, and collaborations.
         </p>
-      </div>
 
-      <div class="card">
-        <h3>✂️ Editing</h3>
-        <p>
-          Talk editing, effects, transitions, presets,
-          software, and techniques.
-        </p>
-      </div>
+        <div class="buttons">
 
-      <div class="card">
-        <h3>🖼️ Thumbnails</h3>
-        <p>
-          Show your thumbnails and get useful feedback
-          from other creators.
-        </p>
-      </div>
+            <a
+                class="btn primary"
+                href="https://discord.gg/dyD75NwRdD"
+                target="_blank"
+            >
+                🔥 JOIN CLIPZONE
+            </a>
 
-      <div class="card">
-        <h3>💡 Ideas</h3>
-        <p>
-          Share video ideas, brainstorm concepts,
-          and help creators improve their content.
-        </p>
-      </div>
+            <a
+                class="btn secondary"
+                href="#showcase"
+            >
+                🎬 EXPLORE
+            </a>
 
-      <div class="card">
-        <h3>🤝 Collaborations</h3>
-        <p>
-          Find editors, creators, designers, and gamers
-          to work with.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>🎮 Gaming</h3>
-        <p>
-          Hang out with other gamers and share your
-          favorite gaming moments.
-        </p>
-      </div>
+        </div>
 
     </div>
-  </section>
 
-  <!-- FEATURED VIDEO -->
-  <section id="showcase">
+</section>
 
-    <h2 class="section-title">
-      Featured <span>Clip</span>
-    </h2>
+
+<!-- FEATURES -->
+
+<section id="features">
+
+    <h2 class="section-title">WHAT YOU CAN DO</h2>
+
+    <div class="features">
+
+        <div class="card">
+            <h3>🎬 Clips & Shorts</h3>
+            <p>
+                Share your best clips, highlights, Shorts,
+                and funny moments.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>✂️ Editing</h3>
+            <p>
+                Talk editing, effects, transitions,
+                presets, and techniques.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🖼️ Thumbnails</h3>
+            <p>
+                Show your thumbnails and get useful
+                feedback from other creators.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>💡 Ideas</h3>
+            <p>
+                Share video ideas and brainstorm
+                your next big project.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🤝 Collaborations</h3>
+            <p>
+                Find other creators and work together
+                on new projects.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🎮 Gaming</h3>
+            <p>
+                Talk games, share gameplay,
+                and post your best moments.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FEATURED VIDEO -->
+
+<section>
+
+    <h2 class="section-title">FEATURED CLIP</h2>
 
     <div class="video-container">
 
-      <iframe
-        src="https://www.youtube.com/embed/6H7FRGPL1rg"
-        title="Welcome To CLIPZONE"
-        allowfullscreen>
-      </iframe>
+        <iframe
+            src="https://www.youtube.com/embed/6H7FRGPL1rg"
+            title="Welcome To CLIPZONE"
+            allowfullscreen>
+        </iframe>
 
     </div>
 
-  </section>
+</section>
 
-  <!-- DISCORD LIVE -->
-  <section id="discord">
 
-    <h2 class="section-title">
-      CLIPZONE <span>LIVE</span>
-    </h2>
+<!-- CREATOR SHOWCASE -->
+
+<section id="showcase">
+
+    <h2 class="section-title">CREATOR COMMUNITY</h2>
+
+    <div class="creators">
+
+        <div class="creator">
+
+            <div class="creator-icon">🎮</div>
+
+            <h3>Gaming Creators</h3>
+
+            <p>
+                Share gaming clips, highlights,
+                funny moments, and gameplay.
+            </p>
+
+        </div>
+
+
+        <div class="creator">
+
+            <div class="creator-icon">✂️</div>
+
+            <h3>Editors</h3>
+
+            <p>
+                Show your edits, effects,
+                transitions, and skills.
+            </p>
+
+        </div>
+
+
+        <div class="creator">
+
+            <div class="creator-icon">🎨</div>
+
+            <h3>Designers</h3>
+
+            <p>
+                Share thumbnails, graphics,
+                logos, and artwork.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- DISCORD -->
+
+<section id="discord">
+
+    <h2 class="section-title">CLIPZONE DISCORD</h2>
 
     <div class="discord-box">
 
-      <p style="color:#aaa; max-width:650px; line-height:1.7;">
-        See the CLIPZONE Discord community directly from the website.
-        The information shown here comes from Discord's server widget.
-      </p>
+        <p>
+            Join the community and see who's online.
+        </p>
 
-      <iframe
-        src="https://discord.com/widget?id=1552459623272030320&theme=dark"
-        allowtransparency="true"
-        frameborder="0"
-        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
-      </iframe>
+        <div class="discord-widget">
+
+            <iframe
+                src="https://discord.com/widget?id=1552459623272030320&theme=dark"
+                width="350"
+                height="500"
+                allowtransparency="true"
+                frameborder="0"
+                sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts">
+            </iframe>
+
+        </div>
 
     </div>
 
-  </section>
+</section>
 
-  <!-- COMMUNITY -->
-  <section>
 
-    <h2 class="section-title">
-      Creator <span>Community</span>
-    </h2>
+<!-- CREATOR CHALLENGE -->
 
-    <div class="grid">
+<section id="challenge">
 
-      <div class="card">
-        <h3>🎮 Gaming Creators</h3>
+    <h2 class="section-title">🏆 CREATOR CHALLENGE</h2>
+
+    <div class="challenge">
+
+        <h3>MAKE YOUR BEST SHORT</h3>
+
         <p>
-          Share gaming content, clips, highlights, and funny moments.
+            You've got one month to create your best
+            Short and show the CLIPZONE community what
+            you've got. 🎬🔥
         </p>
-      </div>
 
-      <div class="card">
-        <h3>✂️ Editors</h3>
-        <p>
-          Find editing tips, share your work, and help other creators.
-        </p>
-      </div>
+        <div class="rules">
 
-      <div class="card">
-        <h3>🎨 Designers</h3>
-        <p>
-          Share thumbnails, graphics, artwork, and design ideas.
-        </p>
-      </div>
+            <div>🎮 Gaming clips</div>
+            <div>✂️ Creative edits</div>
+            <div>😂 Funny moments</div>
+            <div>💡 Original ideas</div>
+
+        </div>
+
+        <h4>⏳ TIME REMAINING</h4>
+
+        <div id="countdown">
+            Loading...
+        </div>
+
+        <a
+            class="btn primary"
+            href="https://discord.gg/dyD75NwRdD"
+            target="_blank"
+        >
+            📤 SUBMIT YOUR SHORT
+        </a>
 
     </div>
 
-  </section>
+</section>
 
-  <!-- ABOUT -->
-  <section>
 
-    <h2 class="section-title">
-      About <span>CLIPZONE</span>
-    </h2>
+<!-- ABOUT -->
 
-    <div class="about-box">
+<section>
 
-      <p>
-        CLIPZONE is a community for creators, editors, designers,
-        gamers, and anyone who loves making content.
-        Share your work, get feedback, find collaborators,
-        and connect with other creators.
-      </p>
+    <h2 class="section-title">ABOUT CLIPZONE</h2>
+
+    <div class="about">
+
+        <p>
+            CLIPZONE is a community built for creators,
+            editors, designers, gamers, and anyone who
+            enjoys making content.
+        </p>
+
+        <br>
+
+        <p>
+            Share your work, get feedback, find
+            collaborators, discover new ideas,
+            and become part of the community.
+        </p>
 
     </div>
 
-  </section>
+</section>
 
-  <!-- CTA -->
-  <section class="cta">
 
-    <h2>Ready to Create? 🔥</h2>
+<!-- FINAL CTA -->
+
+<section class="cta">
+
+    <h2>CREATE. SHARE. CONNECT. 🚀</h2>
 
     <p>
-      Join CLIPZONE and become part of the creator community.
+        Your next project could start here.
     </p>
 
     <a
-      class="btn primary"
-      href="https://discord.gg/dyD75NwRdD"
-      target="_blank"
+        class="btn primary"
+        href="https://discord.gg/dyD75NwRdD"
+        target="_blank"
     >
-      🚀 JOIN THE DISCORD
+        🔥 JOIN CLIPZONE
     </a>
 
-  </section>
+</section>
 
-  <footer>
-    © 2026 CLIPZONE • Create. Share. Connect.
-  </footer>
+
+<!-- FOOTER -->
+
+<footer>
+
+    © 2026 CLIPZONE • Creator & Editing Hub
+
+</footer>
+
+
+<!-- COUNTDOWN SCRIPT -->
+
+<script>
+
+const countdown = document.getElementById("countdown");
+
+/*
+   CHALLENGE DEADLINE:
+   October 24, 2026 at 11:59 PM
+*/
+
+const end = new Date("October 24, 2026 23:59:59").getTime();
+
+function updateCountdown() {
+
+    const now = new Date().getTime();
+
+    const distance = end - now;
+
+    if (distance <= 0) {
+
+        countdown.innerHTML = "🏆 CHALLENGE ENDED!";
+
+        return;
+
+    }
+
+    const days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24))
+        / (1000 * 60 * 60)
+    );
+
+    const minutes = Math.floor(
+        (distance % (1000 * 60 * 60))
+        / (1000 * 60)
+    );
+
+    const seconds = Math.floor(
+        (distance % (1000 * 60))
+        / 1000
+    );
+
+    countdown.innerHTML =
+        days + "D " +
+        hours + "H " +
+        minutes + "M " +
+        seconds + "S";
+
+}
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+</script>
 
 </body>
 </html>
